@@ -23,15 +23,15 @@ ARI_list = []
 random_seed = 42
 STHGRL.fix_seed(random_seed)
 os.environ['R_HOME'] = 'D:/R/R-4.3.3/R-4.3.3'
-os.environ['R_USER'] = 'D:/Anaconda3/Anaconda3202303/envs/STAGCL/Lib/site-pac kages/rpy2'
+os.environ['R_USER'] = 'D:/Anaconda3/Anaconda3202303/envs/STHGRL/Lib/site-pac kages/rpy2'
 device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 print(device)
 
 dataset = 'DLPFC'
 slice = '151676'
 platform = '10X'
-file_fold = os.path.join('E:/GQ/experiment/STAGCL/STAGCL/Data', platform, dataset, slice)
-adata, adata_X = utils.load_data(dataset, file_fold)#加载特征及标签
+file_fold = os.path.join('../Data', platform, dataset, slice)
+adata, adata_X = utils.load_data(dataset, file_fold)
 print("adata", adata)
 df_meta = pd.read_csv(file_fold + '/metadata.tsv', sep='\t')
 adata = utils.label_process_DLPFC(adata, df_meta)
@@ -91,7 +91,7 @@ print(str(slice))
 print(n_clusters)
 ARI_list.append(ARI)
 
-#绘制基本图
+
 plt.rcParams["figure.figsize"] = (3, 3)
 title = "Manual annotation (" + dataset + "#" + slice + ")"
 sc.pl.spatial(adata, img_key="hires", color=['ground_truth'], title=title, show=False)
@@ -104,10 +104,10 @@ sc.pl.spatial(adata, color=['STHGRL'], ax=axes[1], show=False)
 axes[0].set_title("Manual annotation (" + dataset + "#" + slice + ")")
 axes[1].set_title('STHGRL_Clustering: (ARI=%.4f)' % ARI)
 
-# 将两张图片拼接起来
-plt.subplots_adjust(wspace=0.5)  # 增加两幅图之间的水平间距
-plt.subplots_adjust(hspace=0.5)  # 增加两幅图之间的垂直间距,需放在保存图片前否则没有效果
-plt.savefig(savepath + 'STHGRL.jpg', dpi=300)  # 存储图片注意要在plot前面
+
+plt.subplots_adjust(wspace=0.5)  
+plt.subplots_adjust(hspace=0.5)  
+plt.savefig(savepath + 'STHGRL.jpg', dpi=300)  
 
 
 sc.pp.neighbors(adata, use_rep='STHGRL', metric='cosine')
@@ -133,3 +133,4 @@ plt.savefig(savepath + 'STSGCL_PAGA_domain.tif', bbox_inches='tight', dpi=300)
 sc.tl.paga(adata, groups='ground_truth')
 sc.pl.paga_compare(adata, legend_fontsize=10, frameon=False, size=20, title=title, legend_fontoutline=2, show=False)
 plt.savefig(savepath + 'STSGCL_PAGA_ground_truth.png', bbox_inches='tight', dpi=300)
+
