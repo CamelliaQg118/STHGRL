@@ -42,10 +42,8 @@ if not os.path.exists(savepath):
     os.mkdir(savepath)
 n_clusters = 5 if slice in ['151669', '151670', '151671', '151672'] else 7
 
-# adata, adj, edge_index = utils.graph_build(adata, adata_X, dataset)
-# sthgrl_net = STHGRL.sthgrl_xiaohy(adata.obsm['X_pca'], adata, adj, edge_index, n_clusters, dataset, device=device)
 
-adata, adj, edge_index, hypergraph, hypergraph_drop = utils.graph_hypergraph_build(adata, adata_X, dataset)
+
 print("adata_adj", adj)
 print("hypergraph", hypergraph)
 print("hypergraph_drop", hypergraph_drop)
@@ -133,4 +131,5 @@ plt.savefig(savepath + 'STSGCL_PAGA_domain.tif', bbox_inches='tight', dpi=300)
 sc.tl.paga(adata, groups='ground_truth')
 sc.pl.paga_compare(adata, legend_fontsize=10, frameon=False, size=20, title=title, legend_fontoutline=2, show=False)
 plt.savefig(savepath + 'STSGCL_PAGA_ground_truth.png', bbox_inches='tight', dpi=300)
+
 
