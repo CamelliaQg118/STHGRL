@@ -1,7 +1,7 @@
 # STAGCL
 
 The complete code will be made available after the article is published.
-__STAGCL__
+__STHGRL__
 
 ## Requirements:
  
