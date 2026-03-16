@@ -36,7 +36,7 @@ print("adata", adata)
 df_meta = pd.read_csv(file_fold + '/metadata.tsv', sep='\t')
 adata = utils.label_process_DLPFC(adata, df_meta)
 
-savepath = '../Result/test/DLPFC/' + str(slice) + '/'
+savepath = '../Result/DLPFC/' + str(slice) + '/'
 
 if not os.path.exists(savepath):
     os.mkdir(savepath)
